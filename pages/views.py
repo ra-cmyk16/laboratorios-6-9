@@ -44,7 +44,10 @@ def about(request):
     context = {
         "purpose": "Practice URL routing, views, and templates.",
     }
-    return render(request, "pages/about.html", context)
+    return render(request, "pages/about.html    ", context)
+
+def faq(request):
+    return render(request, "pages/faq.html")    
 
 def contact(request):
     return HttpResponse("Contact information")

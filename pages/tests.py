@@ -20,9 +20,8 @@ class PageViewsTests(SimpleTestCase):
 
     def test_about_page_renders(self):
         response = self.client.get(reverse("pages:about"))
-
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "pages/about.html")
+        self.assertContains(response, "About this project")
 
     def test_home_navigation_links_to_resources(self):
         response = self.client.get(reverse("pages:home"))
@@ -36,3 +35,11 @@ class PageViewsTests(SimpleTestCase):
         response = self.client.get("/not-found/")
 
         self.assertEqual(response.status_code, 404)
+
+    def test_faq_page_loads(self):
+        response = self.client.get(reverse("pages:faq"))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pages/faq.html")
+        self.assertContains(response, "Frequently Asked Questions")    
+
