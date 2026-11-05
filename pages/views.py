@@ -19,11 +19,21 @@ def resources(request):
             {
                 "title": "Git and GitHub",
                 "category": "Collaboration",
-                "available": True,
+                "available": False,
             },
             {
                 "title": "Django models",
                 "category": "Web development",
+                "available": False,
+            },
+              {
+                "title": "HTML and CSS Essentials",
+                "category": "Web development",
+                "available": True,
+            },
+            {
+                "title": "Introduction to Databases",
+                "category": "Data Science",
                 "available": False,
             },
         ],
