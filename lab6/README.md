@@ -67,7 +67,3 @@ python manage.py test pages
 - `requirements.txt`: contiene las dependencias necesarias para ejecutar el proyecto.
 - `manage.py`: permite ejecutar comandos administrativos de Django.
 - `README.md`: contiene la documentación general del proyecto.
-
-## Autor
-
-Proyecto desarrollado como parte de un ejercicio académico de aprendizaje de Django.
