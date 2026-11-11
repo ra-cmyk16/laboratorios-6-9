@@ -1,54 +1,110 @@
 # ClassroomHub
 
-## Descripción del proyecto
+## 1. Descripción del proyecto
 
-ClassroomHub es una aplicación web desarrollada con Python y Django como ejercicio de aprendizaje. Permite consultar recursos educativos organizados por categorías y administrar su información mediante Django Admin.
+ClassroomHub es una aplicación web desarrollada con Django como parte de un proceso de aprendizaje sobre desarrollo web con Python. Su propósito es administrar y consultar recursos educativos organizados por categorías, implementando funcionalidades de autenticación, autorización y control de acceso.
 
-## Funcionalidades
+El proyecto permite consultar recursos, visualizar categorías, gestionar la disponibilidad de los recursos y acceder a funcionalidades privadas mediante cuentas de usuario.
 
-- **Página de inicio:** muestra un mensaje de bienvenida.
-- **Página de recursos:** presenta los recursos educativos registrados en la base de datos.
-- **Consulta de disponibilidad:** permite consultar únicamente los recursos disponibles.
-- **Página Acerca de:** contiene información sobre el propósito del proyecto.
-- **Página FAQ:** presenta preguntas frecuentes.
-- **Página de contacto:** muestra información de contacto.
-- **Django Admin:** permite administrar categorías y recursos.
-- **Relaciones entre modelos:** cada recurso pertenece a una categoría.
+## 2. Tecnologías utilizadas
 
-## Tecnologías utilizadas
-
-- Python 3.12 o superior.
-- Django.
-- MariaDB.
+- Python 3.14.
+- Django 6.1.3.
 - HTML.
+- SQLite o MySQL/MariaDB, según la configuración del proyecto.
+- ORM de Django.
+- Sistema de autenticación integrado de Django.
 - Git y GitHub.
 
-## Requisitos previos
+## 3. Funcionalidades implementadas
 
-Antes de instalar el proyecto, se necesita:
+- Página principal de ClassroomHub.
+- Catálogo de recursos educativos.
+- Consulta de recursos disponibles.
+- Organización de recursos mediante categorías.
+- Sistema de registro de usuarios.
+- Inicio y cierre de sesión.
+- Autenticación mediante el sistema de usuarios de Django.
+- Protección de vistas mediante `login_required`.
+- Control de permisos mediante el sistema de autorización de Django.
+- Resumen privado de recursos.
+- Pruebas automatizadas para comprobar el acceso de usuarios autenticados y visitantes anónimos.
 
-- Tener Python instalado.
-- Tener MariaDB instalado y funcionando.
-- Tener Git instalado.
-- Contar con una terminal para ejecutar los comandos.
+## 4. Estructura del proyecto
 
-## Instalación
-
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/ra-cmyk16/laboratorios-6-9.git
+```text
+classroom-hub/
+│
+├── .venv/
+│
+├── config/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── pages/
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   ├── 0001_initial.py
+│   │   └── 0002_resource_resource_type.py
+│   │   
+│   ├── templates/
+│   │   ├── pages/
+│   │   ├── base.html
+│   │   ├── home.html
+│   │   ├── about.html
+│   │   ├── faq.html
+│   │   ├── contact.html
+│   │   ├── resources.html
+│   │   ├── signup.html
+│   │   ├── login.html
+│   │   ├── dashboard.html
+│   │   ├── dashboard_summary.html
+│   │   └── review.html
+│   │   
+│   │
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
+├── .env
+├── .gitignore
+├── manage.py
+├── README.md
+└── requirements.txt
 ```
 
-Ingresar a la carpeta del proyecto:
+La estructura puede incluir otras plantillas y archivos correspondientes a las funcionalidades anteriores del laboratorio.
+
+## 5. Requisitos previos
+
+Antes de instalar el proyecto se necesita:
+
+- Python 3.14 instalado.
+- Git instalado.
+- Un gestor de base de datos compatible con la configuración del proyecto.
+- Un editor de código, como Visual Studio Code.
+
+## 6. Clonar el repositorio
 
 ```bash
-cd laboratorios-6-9
+git clone URL_DEL_REPOSITORIO
 ```
 
-Si el laboratorio se encuentra dentro de una subcarpeta, ingresar también a ella.
+Ingresar a la carpeta:
 
-### 2. Crear y activar el entorno virtual
+```bash
+cd classroom-hub
+```
+
+## 7. Crear y activar el entorno virtual
 
 En Windows:
 
@@ -56,13 +112,13 @@ En Windows:
 python -m venv .venv
 ```
 
-Activar el entorno:
+Activar el entorno virtual:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-### 3. Instalar las dependencias
+## 8. Instalar dependencias
 
 Actualizar pip:
 
@@ -70,17 +126,35 @@ Actualizar pip:
 python -m pip install --upgrade pip
 ```
 
-Instalar las dependencias del proyecto:
+Instalar las dependencias:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Configuración de la base de datos
+## 9. Configuración de variables de entorno
 
-### 4. Crear la base de datos en MariaDB
+Crear un archivo `.env` en la raíz del proyecto.
 
-Ingresar a MariaDB y ejecutar:
+Este archivo debe contener las variables utilizadas por `config/settings.py`.
+
+Ejemplo para una configuración MySQL/MariaDB:
+
+```env
+DB_NAME=classroom_hub
+DB_USER=usuario_base_datos
+DB_PASSWORD=contraseña_base_datos
+DB_HOST=localhost
+DB_PORT=3306
+```
+
+Los nombres de las variables deben coincidir con los utilizados en el proyecto.
+
+No se deben publicar contraseñas, claves secretas ni información privada en GitHub.
+
+## 10. Crear la base de datos
+
+Si se utiliza MySQL o MariaDB, ingresar al gestor de bases de datos y ejecutar:
 
 ```sql
 CREATE DATABASE classroom_hub
@@ -88,77 +162,35 @@ CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 ```
 
-Crear una cuenta para la aplicación:
+Configurar la conexión en el archivo de variables de entorno y verificar que Django pueda conectarse correctamente.
 
-```sql
-CREATE USER 'classroomhub_user'@'localhost'
-IDENTIFIED BY 'CAMBIAR_POR_UNA_CLAVE_SEGURA';
+Si el proyecto utiliza SQLite, Django crea el archivo de base de datos al ejecutar las migraciones y no es necesario crear previamente una base mediante SQL.
+
+## 11. Aplicar migraciones
+
+Verificar las migraciones pendientes:
+
+```bash
+python manage.py showmigrations
 ```
 
-Dar permisos sobre la base de datos:
-
-```sql
-GRANT ALL PRIVILEGES ON classroom_hub.*
-TO 'classroomhub_user'@'localhost';
-
-FLUSH PRIVILEGES;
-```
-
-La cuenta SQL permite que Django se conecte a MariaDB. No es el mismo usuario que se utiliza para ingresar a Django Admin.
-
-### 5. Configurar las variables de entorno
-
-Crear un archivo llamado `.env` en la carpeta principal del proyecto.
-
-Agregar la configuración de conexión:
-
-```env
-DB_NAME=classroom_hub
-DB_USER=classroomhub_user
-DB_PASSWORD=CAMBIAR_POR_LA_CLAVE_CONFIGURADA
-DB_HOST=localhost
-DB_PORT=3306
-```
-
-El archivo `.env` contiene información privada y no debe subirse a GitHub.
-
-También se debe mantener un archivo `.env.example` con los nombres de las variables y valores de ejemplo, sin contraseñas reales:
-
-```env
-DB_NAME=classroom_hub
-DB_USER=classroomhub_user
-DB_PASSWORD=
-DB_HOST=localhost
-DB_PORT=3306
-```
-
-**Importante:** los nombres de las variables deben coincidir con los que utiliza `config/settings.py` para leer la configuración.
-
-## Migraciones
-
-### 6. Crear y aplicar las migraciones
-
-Crear los archivos de migración a partir de los modelos:
+Crear migraciones cuando existan cambios en los modelos:
 
 ```bash
 python manage.py makemigrations
 ```
 
-Aplicar las migraciones a la base de datos:
+Aplicar las migraciones:
 
 ```bash
 python manage.py migrate
 ```
 
-Los archivos de migración deben guardarse en Git porque permiten reconstruir la estructura de la base de datos.
+Los archivos de migración deben versionarse en GitHub. No se debe versionar el contenido real de la base de datos.
 
-No se deben subir las contraseñas, los datos reales de la base de datos ni copias de seguridad con información privada.
+## 12. Crear un superusuario
 
-## Crear el superusuario
-
-### 7. Crear una cuenta de administrador
-
-Ejecutar:
+Para acceder al panel administrativo de Django:
 
 ```bash
 python manage.py createsuperuser
@@ -166,77 +198,106 @@ python manage.py createsuperuser
 
 Ingresar el nombre de usuario, correo electrónico y contraseña solicitados.
 
-Esta cuenta permite acceder al panel administrativo de Django.
+## 13. Ejecutar el servidor
 
-## Ejecución del proyecto
-
-### 8. Iniciar el servidor
-
-Ejecutar:
+Iniciar el servidor de desarrollo:
 
 ```bash
 python manage.py runserver
 ```
 
-Abrir el navegador en:
+Abrir en el navegador:
 
+```text
 http://127.0.0.1:8000/
+```
 
-Para consultar los recursos:
+## 14. Resumen privado de recursos
 
-http://127.0.0.1:8000/resources/
+Se implementó una vista de solo lectura en:
 
-Para consultar los recursos disponibles:
+```text
+/dashboard/summary/
+```
 
-http://127.0.0.1:8000/resources/available/
+Esta funcionalidad permite consultar:
 
-Para ingresar al panel administrativo:
+- Número total de recursos registrados.
+- Número de recursos disponibles.
 
-http://127.0.0.1:8000/admin/
+La información se obtiene mediante consultas al ORM de Django utilizando `count()` y `filter()`.
 
-## Ejecución de pruebas
+La vista está protegida mediante `@login_required`, por lo que los visitantes anónimos son redirigidos al inicio de sesión. No exige el permiso `view_resource`, ya que el objetivo del reto es permitir que cualquier usuario autenticado consulte las estadísticas.
 
-### 9. Verificar la configuración
+## 15. Seguridad y control de acceso
+
+El proyecto utiliza el sistema de autenticación integrado de Django para gestionar las cuentas de usuario y las sesiones.
+
+Se implementan mecanismos como:
+
+- Registro de usuarios.
+- Inicio y cierre de sesión.
+- Almacenamiento seguro de contraseñas mediante el sistema de Django.
+- Protección CSRF en formularios.
+- Restricción de acceso a vistas privadas.
+- Comprobación de permisos desde las vistas.
+- Diferenciación entre autenticación y autorización.
+
+## 16. Ejecutar las pruebas
+
+Verificar la configuración del proyecto:
 
 ```bash
 python manage.py check
 ```
 
-### 10. Ejecutar las pruebas automatizadas
+Ejecutar las pruebas de la aplicación:
 
 ```bash
 python manage.py test pages
 ```
 
-Las pruebas permiten comprobar el funcionamiento de las vistas, las consultas y las funcionalidades de la aplicación.
+Ejecutar específicamente las pruebas del resumen privado:
 
-## Estructura del proyecto
+```bash
+python manage.py test pages.tests.DashboardSummaryTests
+```
 
-- `config/`: contiene la configuración principal del proyecto Django.
-- `pages/`: contiene los modelos, vistas, rutas, pruebas y plantillas.
-- `pages/migrations/`: contiene los archivos de migración de los modelos.
-- `requirements.txt`: contiene las dependencias del proyecto.
-- `.env`: contiene las variables privadas de configuración.
-- `.env.example`: muestra las variables necesarias para configurar el proyecto.
-- `.gitignore`: indica qué archivos no deben versionarse.
-- `manage.py`: permite ejecutar comandos administrativos de Django.
-- `README.md`: contiene la documentación del proyecto.
+Las pruebas comprueban el comportamiento de los usuarios anónimos y autenticados, así como los valores de los recursos registrados.
 
-## Archivos que deben versionarse
+## 17. Versionamiento con Git
 
-Se deben incluir en Git:
+Consultar los cambios:
 
-- El código fuente del proyecto.
-- Los archivos de migración de Django.
-- `requirements.txt`.
-- `.env.example`.
-- `README.md`.
-- Las plantillas y pruebas.
+```bash
+git status
+```
+
+Agregar los archivos:
+
+```bash
+git add .
+```
+
+Crear un commit:
+
+```bash
+git commit -m "feat: add private resource summary dashboard"
+```
+
+Subir los cambios a la rama de trabajo:
+
+```bash
+git push origin nombre-de-la-rama
+```
+
+Se deben versionar el código fuente, las plantillas, las pruebas, los archivos de configuración compartibles y las migraciones.
 
 No se deben subir:
 
-- `.env`.
 - El entorno virtual `.venv/`.
-- Contraseñas o credenciales privadas.
-- Copias de seguridad con datos reales de la base de datos.
-- Archivos temporales o caché de Python.
+- El archivo `.env`.
+- Contraseñas o claves secretas.
+- Bases de datos locales con información real.
+- Archivos temporales o cachés de Python.
+
