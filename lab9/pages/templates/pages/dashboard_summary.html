@@ -1,0 +1,24 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Resumen privado | ClassroomHub{% endblock %}
+
+{% block content %}
+
+<h2>Resumen privado de recursos</h2>
+
+<p>Esta sección presenta las estadísticas generales
+de los recursos registrados en ClassroomHub.</p>
+
+<section>
+    <h3>Total de recursos</h3>
+    <p>{{ total_resources }}</p>
+</section>
+
+<section>
+    <h3>Recursos disponibles</h3>
+    <p>{{ available_resources }}</p>
+</section>
+
+<a href="{% url 'pages:home' %}">Volver al inicio</a>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+
+{% extends "pages/base.html" %}
+
+{% block title %}Resources | ClassroomHub{% endblock %}
+
+{% block content %}
+    <h2>Learning resources</h2>
+    <p>Browse the available learning materials.</p>
+
+    <h2>Search resources</h2>
+
+    <form method="get">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search by title..."
+            value="{{ query }}"
+        >
+
+        <button type="submit">Search</button>
+        <a href="{% url 'pages:resources' %}">Clear</a>
+    </form>
+
+    <h2>Available resources</h2>
+
+    {% for resource in resources %}
+        <article class="resource">
+            <h3>
+                <a href="{% url 'pages:resource-detail' resource.pk %}">
+                    {{ resource.title }}
+                </a>
+            </h3>
+
+            <p>{{ resource.description }}</p>
+
+            <p>Category: {{ resource.category }}</p>
+
+            {% if resource.available %}
+                <p>Available</p>
+            {% else %}
+                <p>Coming soon</p>
+            {% endif %}
+        </article>
+    {% empty %}
+        <p>No resources are available.</p>
+        <p>No se encontraron recursos.</p>
+    {% endfor %}
+{% endblock %}
